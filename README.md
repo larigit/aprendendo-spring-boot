@@ -74,7 +74,49 @@ Links para saber mais:
 
 ## stream
 
+A Streams API traz uma nova opção para a manipulação de coleções em Java seguindo os princípios da programação funcional. Combinada com as expressões lambda, ela proporciona uma forma diferente de lidar com conjuntos de elementos, oferecendo ao desenvolvedor uma maneira simples e concisa de escrever código que resulta em facilidade de manutenção e paralelização sem efeitos indesejados em tempo de execução.
 
+A paralelização de operações consiste basicamente em dividir uma tarefa maior em subtarefas menores, processar essas subtarefas em paralelo e, em seguida, combinar os resultados para obter o resultado final. Em sua estrutura, a API de Streams fornece um mecanismo similar para trabalhar com a Java Collections, convertendo a coleção em uma stream, em um primeiro momento, processando os vários elementos em paralelo em seguida e, por fim, reunindo os elementos resultantes em uma coleção.
+
+Exemplo: encontrar em uma lista de ordens de serviço todas aquelas que estão relacionadas à ativação, por exemplo, de um serviço de telefonia, e por fim retornar todos os identificadores dessas ordens classificados de maneira decrescente segundo o valor cobrado pelo serviço.
+
+Antes do stream:
+````
+List<Ordem> OrdensAtivacao = new Arraylist<>();
+for(Ordem o: ordens){    
+  if(o.getType() == Ordem.ATIVACAO) {  
+    OrdensAtivacao.add(t); 
+    } 
+  }
+Collections.sort(OrdensAtivacao, new Comparator(){ 
+  public int compare(Ordem t1, Ordem t2){          
+    return t2.getValue().compareTo(t1.getValue());      
+  }
+});
+List<Integer> ordensIDs = new ArrayList<>();
+for(Ordem o: OrdensAtivacao){      
+  ordensIDs.add(t.getId());
+}
+````
+
+Depois do stream:
+````
+List<Integer> ordensIDs =    Ordem.stream()
+               .filter(o -> o.getType() == Ordem.ATIVACAO)
+               .sorted(comparing(Ordem::getValue).reversed())
+               .map(Ordem::getId)
+               .collect(toList());
+````
+
+Primeiramente, obtemos uma stream da lista de dados usando o método stream(), da interface Collection. Depois, uma série de operações são aplicadas. O método filter(), por exemplo, retorna apenas as ordens que são do tipo ATIVACAO. Sua saída é processada pela operação sorted(), que ordenará as operações de forma decrescente levando em consideração o valor da operação. Em seguida, o resultado de sorted() será manipulado pelo método map(), que obterá todas as informações que desejamos, ou seja, todos os identificadores das ordens da lista de operações. Por fim, o método collect() devolve uma lista de inteiros, em oposição aos demais, que sempre retornam uma nova stream como resultado do processamento.
+
+Em uma coleção é possível navegar até os elementos de diferentes maneiras, tanto de forma sequencial quanto por meio de índices. Já em uma Stream o acesso aos elementos é sequencial, não sendo possível alcançá-los através de índices, pois inexiste uma estrutura de dados para armazenar os elementos que, por sua vez, são processados sob demanda.
+ 
+Outro diferencial é verificado quando se tem a necessidade de manipular grandes quantidades de dados. Nesses casos a Streams API oferece a possibilidade de trabalhar com esses dados de forma paralela, viabilizando uma melhora de desempenho ao tirar proveito do poder de processamento dos computadores modernos.
+
+Tomando como exemplo o código acima, para que o desenvolvedor consiga fazer uso da paralelização, basta trocar o método stream() por parallelStream(). Dessa forma a Streams API irá decompor as ações em várias subtarefas, e as operações serão processadas em paralelo, explorando os recursos oferecidos pelos diversos núcleos do processador.
+
+Em suma, a Streams API trabalha convertendo uma fonte de dados em uma Stream. Em seguida, realiza o processamento dos dados através das operações intermediárias e, por fim, retorna uma nova coleção ou valor reduzido (map-reduce) com a chamada a uma operação terminal.
 
 Links para saber mais: 
 - [Java 8: Iniciando o desenvolvimento com a Streams API](https://www.oracle.com/br/technical-resources/articles/java-stream-api.html)
