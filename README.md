@@ -263,3 +263,57 @@ Para saber mais:
 - [HTTP: Verbos](https://www.devmedia.com.br/http-verbos/41224)
 - [4 Conceitos sobre REST que Qualquer Desenvolvedor Precisa Conhecer](https://blog.algaworks.com/4-conceitos-sobre-rest-que-qualquer-desenvolvedor-precisa-conhecer/)
 - [API Rest e os verbos HTTP](https://blog.mbeck.com.br/api-rest-e-os-verbos-http-46e189085e21)
+
+## Spring Data JPA
+
+Adicionando no pom.xml:
+
+````
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+````
+(por padrão usa o Hibernate)
+
+````
+<dependency>
+	<groupId>com.h2database</groupId>
+	<artifactId>h2</artifactId>
+</dependency>
+````
+O H2 é um banco de dados Open Source que funciona em memória com um console acessível pelo browser dentro do contexto da aplicação.
+
+Adicionar em main/resources/application.properties:
+````
+# datasource 
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:alura-forum
+spring.datasource.username=sa
+spring.datasource.password=
+
+# jpa 
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+
+# h2
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+````
+
+## @Entity
+A anotação @Entity é utilizada para informar que uma classe também é uma entidade. A partir disso, a JPA estabelecerá a ligação entre a entidade e uma tabela de mesmo nome no banco de dados, onde os dados de objetos desse tipo poderão ser persistidos.
+
+Uma entidade representa, na Orientação a Objetos, uma tabela do banco de dados, e cada instância dessa entidade representa uma linha dessa tabela.
+
+Exemplo:
+````
+@Entity
+public class Produto {
+
+}
+````
+
+
+Para saber mais: 
+- [JPA: Como usar a anotação @Entity](https://www.devmedia.com.br/jpa-como-usar-a-anotacao-entity/38410)
