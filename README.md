@@ -224,9 +224,13 @@ Operações DELETE são idempotentes.
 Baseado nos métodos que discutimos, o servidor deve processar cada uma das requisições e retornar uma resposta adequada. Veja um resumo de cada uma dessas respostas.
 
 1XX – Informações Gerais
+
 2XX – Sucesso
+
 3XX – Redirecionamento
+
 4XX – Erro no cliente
+
 5XX – Erro no servidor
 
 
