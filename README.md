@@ -120,3 +120,75 @@ Em suma, a Streams API trabalha convertendo uma fonte de dados em uma Stream. Em
 
 Links para saber mais: 
 - [Java 8: Iniciando o desenvolvimento com a Streams API](https://www.oracle.com/br/technical-resources/articles/java-stream-api.html)
+
+## Method References
+
+You use lambda expressions to create anonymous methods. Sometimes, however, a lambda expression does nothing but call an existing method. In those cases, it's often clearer to refer to the existing method by name. Method references enable you to do this; they are compact, easy-to-read lambda expressions for methods that already have a name.
+
+Kind | Syntax
+--------- | ------
+Reference to a static method | ContainingClass :: staticMethodName
+Reference to an instance method of a particular object | containingObject :: instanceMethodName
+Reference to an instance method of an arbitrary object of a particular type	    | ContainingType :: methodName	
+Reference to a constructor	  | ClassName :: new	
+
+````
+public class MethodReferencesExamples {
+    
+    public static <T> T mergeThings(T a, T b, BiFunction<T, T, T> merger) {
+        return merger.apply(a, b);
+    }
+    
+    public static String appendStrings(String a, String b) {
+        return a + b;
+    }
+    
+    public String appendStrings2(String a, String b) {
+        return a + b;
+    }
+````
+````
+MethodReferencesExamples myApp = new MethodReferencesExamples();
+
+// Reference to a static method
+MethodReferencesExamples::appendStrings
+
+// Reference to an instance method of a particular object  
+myApp::appendStrings2
+
+// Reference to an instance method of an arbitrary object of a particular type
+String::concat
+
+// Reference to a constructor
+HashSet::new
+````
+
+Links para saber mais: 
+- https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
+
+## ENUM
+
+São tipos de campos que consistem em um conjunto fixo de constantes (static final), sendo como uma lista de valores pré-definidos. Na linguagem de programação Java, pode ser definido um tipo de enumeração usando a palavra chave enum.
+
+Todos os tipos enums implicitamente estendem a classe java.lang.Enum, sendo que o Java não suporta herança múltipla, não podendo estender nenhuma outra classe.
+
+Declaração de Enum, com construtor e métodos:
+
+````
+public enum OpcoesMenu {
+SALVAR(1), IMPRMIR(2), ABRIR(3), VISUALIZAR(4), FECHAR(5);
+
+private final int valor;
+OpcoesMenu(int valorOpcao){
+valor = valorOpcao;
+}
+public int getValor(){
+return valor;
+}
+}
+````
+
+Links para saber mais:
+- https://www.devmedia.com.br/tipos-enum-no-java/25729
+
+
