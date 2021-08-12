@@ -22,7 +22,7 @@
 	1. [Mapping Ordinal Value](#ordinal)
 	2. [Mapping String Value](#string)
 13. [JPA - Relacionamentos de Entidade](#relacionamentosentidade)
-
+14. [Inserir Dados via data.sql H2](#sqlh2)
 ---
 
 ## @Controller <a name="controller"></a> 
@@ -652,4 +652,20 @@ Para saber mais:
 - [Como criar relacionamentos entre entidades com Hibernate](https://www.devmedia.com.br/como-criar-relacionamentos-entre-entidades-com-hibernate/33610)
 - [Tutorial de mapeamento de relacionamentos com JPA - JPA LiveClass #15](https://www.youtube.com/watch?v=ODXvvEzXlQY&ab_channel=AlgaWorks)
 
+## Inserir Dados via data.sql H2 <a name="sqlh2"></a>
+#### [Voltar para o topo](#topo)
 
+Para adicionar informações no banco de dados (para o H2), cria-se um arquivo `data.sql` em `main\resources`. 
+
+No meu caso deu um erro que foi resolvido com esse link: [Erro ao Inserir Dados via data.sql H2](https://cursos.alura.com.br/forum/topico-erro-ao-inserir-dados-via-data-sql-h2-160604).
+
+Erro explicado:
+````
+Hibernate and data.sql
+By default, data.sql scripts are now run before Hibernate is initialized. This aligns the behavior of basic script-based 
+initialization with that of Flyway and Liquibase. If you want to use data.sql to populate a schema created by Hibernate, 
+set spring.jpa.defer-datasource-initialization to true. While mixing database initialization technologies is not 
+recommended, this will also allow you to use a schema.sql script to build upon a Hibernate-created schema before 
+it’s populated via data.sql.
+````
+Link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.5-Release-Notes#hibernate-and-datasql
