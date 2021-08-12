@@ -670,4 +670,14 @@ it’s populated via data.sql.
 ````
 Link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.5-Release-Notes#hibernate-and-datasql
 
-Após inserir as informações em `data.sql` e rodar o programa, acessar `localhost:8080/h2-console`.
+Após inserir as informações em `data.sql` e rodar o programa, acessar `localhost:8080/h2-console`. A seguinte tela irá aparecer no navegador:
+
+![](h2-console.png)
+
+Deve ser feita a modificação na url:
+
+![](h2atualizaurl.png)
+
+Esta url deve ser a mesma que está no arquivo `application.properties`:
+
+![](urlemappproperties.png)
