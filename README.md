@@ -644,3 +644,10 @@ Eid|	Deg|	Ename|	Salário|	Departamento_id
 302|	Escritor técnico|	Satish|	45000|	301
 
 ### @ManyToOne <a name="manytoone"></a> 
+
+# Assistir [Tutorial de mapeamento de relacionamentos com JPA - JPA LiveClass #15](https://www.youtube.com/watch?v=ODXvvEzXlQY&ab_channel=AlgaWorks) para entender melhor
+
+Para saber mais:
+- [JPA - Relacionamentos de Entidade](https://www.tutorialspoint.com/pg/jpa/jpa_entity_relationships.htm)
+- [Como criar relacionamentos entre entidades com Hibernate](https://www.devmedia.com.br/como-criar-relacionamentos-entre-entidades-com-hibernate/33610)
+- [Tutorial de mapeamento de relacionamentos com JPA - JPA LiveClass #15](https://www.youtube.com/watch?v=ODXvvEzXlQY&ab_channel=AlgaWorks)
