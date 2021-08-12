@@ -333,3 +333,25 @@ public class Produto {
 ````
 Com o código deste exemplo, a JPA passará a utilizar a estratégia de geração de chave primária do banco de dados ao qual a aplicação está conectada.
 
+Estratégia | Descrição
+--------- | ------
+GenerationType.AUTO | Valor padrão, deixa com o provedor de persistência a escolha da estratégia mais adequada de acordo com o banco de dados.
+GenerationType.IDENTITY | Informamos ao provedor de persistência que os valores a serem atribuídos ao identificador único serão gerados pela coluna de auto incremento ([o que é auto incremento](http://www.bosontreinamentos.com.br/mysql/mysql-auto-incremento-de-valores-em-colunas-08/)) do banco de dados. Assim, um valor para o identificador é gerado para cada registro inserido no banco. Alguns bancos de dados podem não suportar essa opção.
+GenerationType.SEQUENCE  | Informamos ao provedor de persistência que os valores serão gerados a partir de uma sequence ([o que é sequence](https://consultabd.wordpress.com/2019/11/22/sequence/)). Caso não seja especificado um nome para a sequence, será utilizada uma sequence padrão, a qual será global, para todas as entidades. Caso uma sequence seja especificada, o provedor passará a adotar essa sequence para criação das chaves primárias. Alguns bancos de dados podem não suportar essa opção.
+GenerationType.TABLE  | Com a opção TABLE é necessário criar uma tabela para gerenciar as chaves primárias. Por causa da sobrecarga de consultas necessárias para manter a tabela atualizada, essa opção é pouco recomendada.
+
+Exemplo:
+````
+@Entity
+public class Produto {
+
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
+
+    private String nome;
+
+    //getters e setters omitidos
+
+}
+````
