@@ -6,17 +6,19 @@
 1. [@Controller](#controller)
 2. [@RequestMapping](#requestmapping)
 3. [@ResponseBody](#responsebody)
-4. [stream](#stream)
-5. [Method References](#methodreference)
-6. [Enum](#enum)
-7. [REST (Representational State Transfer)](#rest)
-	1. [Identificador de recursos (URI)](#uri)
-	2. [Manipulação de recursos (Verbos HTTP)](#verboshttp)
-	3. [Respostas](#respostas)
-8. [Spring Data JPA](#springdatajpa)
-9. [@Entity](#entity)
-10. [@GeneratedValue](#generatedvalue)
-11. [@Enumerated](#enumerated)
+4. [DTO – Objeto de Transferencia de Dados](#dto)
+5. [stream](#stream)
+6. [Method References](#methodreference)
+7. [Enum](#enum)
+8. [REST (Representational State Transfer)](#rest)
+	1. [Recursos](#recursos)
+	2. [Identificador de recursos (URI)](#uri)
+	3. [Manipulação de recursos (Verbos HTTP)](#verboshttp)
+	4. [Respostas](#respostas)
+9. [Spring Data JPA](#springdatajpa)
+10. [@Entity](#entity)
+11. [@GeneratedValue](#generatedvalue)
+12. [@Enumerated](#enumerated)
 	1. [Mapping Ordinal Value](#ordinal)
 	2. [Mapping String Value](#string)
 
@@ -39,6 +41,7 @@ Links para saber mais:
 - [Padrão MVC - Java Magazine](https://www.devmedia.com.br/padrao-mvc-java-magazine/21995#5)
 
 ## @RequestMapping <a name="requestmapping"></a>
+#### [Voltar para o topo](#topo)
 
 ![](requestmapping.png) 
 
@@ -74,12 +77,14 @@ Links para saber mais:
 
 
 ## @ResponseBody <a name="responsebody"></a>
+#### [Voltar para o topo](#topo)
 
 ![](responsebody.png) 
 
 Essa annotation é usada para transformar um objeto Java retornado do controller em uma representação de recurso solicitada por um cliente REST. Precisamos anotar cada método que gera resposta REST com a anotação @ResponseBody.
 
-## DTO – Objeto de Transferencia de Dados
+## DTO – Objeto de Transferencia de Dados <a name="dto"></a>
+#### [Voltar para o topo](#topo)
 
 Padrão Objeto de Transferência de Dados (do inglês, Data transfer object design pattern, ou simplesmente DTO) é um padrão de arquitetura de objetos que agregam e encapsulam dados para transferência.
 
@@ -92,6 +97,7 @@ Links para saber mais:
 
 
 ## stream <a name="stream"></a>
+#### [Voltar para o topo](#topo)
 
 A Streams API traz uma nova opção para a manipulação de coleções em Java seguindo os princípios da programação funcional. Combinada com as expressões lambda, ela proporciona uma forma diferente de lidar com conjuntos de elementos, oferecendo ao desenvolvedor uma maneira simples e concisa de escrever código que resulta em facilidade de manutenção e paralelização sem efeitos indesejados em tempo de execução.
 
@@ -141,6 +147,7 @@ Links para saber mais:
 - [Java 8: Iniciando o desenvolvimento com a Streams API](https://www.oracle.com/br/technical-resources/articles/java-stream-api.html)
 
 ## Method References <a name="methodreference"></a>
+#### [Voltar para o topo](#topo)
 
 You use lambda expressions to create anonymous methods. Sometimes, however, a lambda expression does nothing but call an existing method. In those cases, it's often clearer to refer to the existing method by name. Method references enable you to do this; they are compact, easy-to-read lambda expressions for methods that already have a name.
 
@@ -186,6 +193,7 @@ Links para saber mais:
 - [Method References](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)
 
 ## ENUM <a name="enum"></a>
+#### [Voltar para o topo](#topo)
 
 São tipos de campos que consistem em um conjunto fixo de constantes (static final), sendo como uma lista de valores pré-definidos. Na linguagem de programação Java, pode ser definido um tipo de enumeração usando a palavra chave enum.
 
@@ -211,22 +219,23 @@ Links para saber mais:
 - [Tipos Enum no Java](https://www.devmedia.com.br/tipos-enum-no-java/25729)
 
 ## REST (Representational State Transfer) <a name="rest"></a>
+#### [Voltar para o topo](#topo)
 
 Tem como objetivo primário a definição de características fundamentais para a construção de aplicações Web seguindo boas práticas.
 
-### Recursos
+### Recursos <a name="recursos"></a>
 Um recurso é um elemento abstrato e que nos permite mapear qualquer coisa do mundo real como um elemento para acesso via Web.
 
 Exemplo:
 - Alunos
 - Cursos
 
-### Identificador de recursos (URI)
+### Identificador de recursos (URI) <a name="uri"></a>
 
 - Alunos (/alunos)
 - Cursos (/cursos)
 
-### Manipulação de recursos (Verbos HTTP)
+### Manipulação de recursos (Verbos HTTP) <a name="verboshttp"></a>
 
 ![](verboshttp.png) 
 
@@ -263,7 +272,7 @@ Operações DELETE são idempotentes.
 
 ![](delete.png) 
 
-### Respostas
+### Respostas <a name="respostas"></a> 
 
 Baseado nos métodos que discutimos, o servidor deve processar cada uma das requisições e retornar uma resposta adequada. Veja um resumo de cada uma dessas respostas.
 
@@ -283,7 +292,8 @@ Para saber mais:
 - [4 Conceitos sobre REST que Qualquer Desenvolvedor Precisa Conhecer](https://blog.algaworks.com/4-conceitos-sobre-rest-que-qualquer-desenvolvedor-precisa-conhecer/)
 - [API Rest e os verbos HTTP](https://blog.mbeck.com.br/api-rest-e-os-verbos-http-46e189085e21)
 
-## Spring Data JPA
+## Spring Data JPA <a name="springdatajpa"></a>
+#### [Voltar para o topo](#topo)
 
 Adicionando no pom.xml:
 
@@ -320,7 +330,9 @@ spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 ````
 
-## @Entity
+## @Entity <a name="entity"></a> 
+#### [Voltar para o topo](#topo)
+
 A anotação @Entity é utilizada para informar que uma classe também é uma entidade. A partir disso, a JPA estabelecerá a ligação entre a entidade e uma tabela de mesmo nome no banco de dados, onde os dados de objetos desse tipo poderão ser persistidos.
 
 Uma entidade representa, na Orientação a Objetos, uma tabela do banco de dados, e cada instância dessa entidade representa uma linha dessa tabela.
@@ -337,7 +349,8 @@ public class Produto {
 Para saber mais: 
 - [JPA: Como usar a anotação @Entity](https://www.devmedia.com.br/jpa-como-usar-a-anotacao-entity/38410)
 
-## @GeneratedValue
+## @GeneratedValue <a name="generatedvalue"></a> 
+#### [Voltar para o topo](#topo)
 
 A anotação @GeneratedValue é utilizada para informar que a geração do valor do identificador único da entidade será gerenciada pelo provedor de persistência. Essa anotação deve ser adicionada logo após a anotação @Id. Quando não anotamos o campo com essa opção, significa que a responsabilidade de gerar e gerenciar as chaves primárias será da aplicação, em outras palavras, do nosso código, como vemos no exemplo a seguir:
 
@@ -380,11 +393,12 @@ Para saber mais:
 - [Entendendo a geração de chaves com JPA](https://www.alura.com.br/artigos/entendendo-a-geracao-de-chaves-com-jpa)
 
 
-## @Enumerated
+## @Enumerated <a name="enumerated"></a> 
+#### [Voltar para o topo](#topo)
 
 The most common option to map an enum value to and from its database representation in JPA before 2.1. is to use the @Enumerated annotation. This way, we can instruct a JPA provider to convert an enum to its ordinal or String value.
 
-### Mapping Ordinal Value
+### Mapping Ordinal Value <a name="ordinal"></a> 
 If we put the @Enumerated(EnumType.ORDINAL) annotation on the enum field, JPA will use the Enum.ordinal() value when persisting a given entity in the database.
 
 Let's introduce the first enum:
@@ -429,7 +443,7 @@ A problem with this kind of mapping arises when we need to modify our enum. If w
 
 Such issues might be hard to catch, as well as problematic to fix, as we would have to update all the database records.
 
-### Mapping String Value
+### Mapping String Value <a name="string"></a> 
 
 Analogously, JPA will use the Enum.name() value when storing an entity if we annotate the enum field with @Enumerated(EnumType.STRING).
 
