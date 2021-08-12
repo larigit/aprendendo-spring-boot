@@ -21,6 +21,7 @@
 12. [@Enumerated](#enumerated)
 	1. [Mapping Ordinal Value](#ordinal)
 	2. [Mapping String Value](#string)
+13. [JPA - Relacionamentos de Entidade](#relacionamentosentidade)
 
 ---
 
@@ -497,4 +498,149 @@ Para saber mais:
 - [Persisting Enums in JPA](https://www.baeldung.com/jpa-persisting-enums-in-jpa)
 - [JPA and Enums via @Enumerated](https://tomee.apache.org/examples-trunk/jpa-enumerated/)
 
+## JPA - Relacionamentos de Entidade <a name="relacionamentosentidade"></a>    
+#### [Voltar para o topo](#topo)
 
+### @OneToOne <a name="onetoone"></a> 
+No relacionamento linear, um artigo pode ser ligado a somente outro um artigo. Significa que cada fileira de uma entidade está referida uma e somente uma fileiras de uma outra entidade.
+Deixe-nos considerar o exemplo acima. Empregado e Departmento em uma maneira unidirecional reversa, a relação é relação linear. Significa que cada empregado pertence a somente um departamento.
+ A entidade do departamento da classe é mostrada como segue:
+````
+package com.tutorialspoint.eclipselink.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Department 
+{
+   @Id 
+   @GeneratedValue( strategy=GenerationType.AUTO )
+   private int id;
+   private String name;
+   
+   public int getId() 
+   {
+      return id;
+   }
+    
+   public void setId(int id) 
+   {
+      this.id = id;
+   }
+    
+   public String getName( )
+   {
+      return name;
+   }
+    
+   public void setName( String deptName )
+   {
+      this.name = deptName;
+   }
+}
+````
+A classe da entidade do empregado é mostrada como segue:
+````
+package com.tutorialspoint.eclipselink.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Employee 
+{
+   @Id
+   @GeneratedValue( strategy= GenerationType.AUTO ) 
+   private int eid;
+   private String ename;
+   private double salary;
+   private String deg;
+
+   @OneToOne
+   private Department department;
+
+   public Employee(int eid, 
+   String ename, double salary, String deg) 
+   {
+      super( );
+      this.eid = eid;
+      this.ename = ename;
+      this.salary = salary;
+      this.deg = deg;
+   }
+
+   public Employee( ) 
+   {
+      super();
+   }
+
+   public int getEid( ) 
+   {
+      return eid;
+   }
+   public void setEid(int eid)  
+   {
+      this.eid = eid;
+   }
+
+   public String getEname( ) 
+   {
+      return ename;
+   }
+   public void setEname(String ename) 
+   {
+      this.ename = ename;
+   }
+
+   public double getSalary( ) 
+   {
+      return salary;
+   }
+   public void setSalary(double salary) 
+   {
+      this.salary = salary;
+   }
+
+   public String getDeg( ) 
+   {
+      return deg;
+   }
+   public void setDeg(String deg) 
+   {
+      this.deg = deg;
+   }
+
+   public Department getDepartment() 
+   {
+      return department;
+   }
+
+   public void setDepartment(Department department) 
+   {
+      this.department = department;
+   }
+}
+````
+Resultado (existem passos intermediarios, para mais detalhes acesse o primeiro link em "para saber mais" logo abaixo):
+````
+Select * from department
+````
+
+ID | Nome
+----|------
+301 | Desenvolvimento
+
+````
+Select * from employee
+````
+Eid|	Deg|	Ename|	Salário|	Departamento_id
+----|-----------|--------|------|----------------------
+302|	Escritor técnico|	Satish|	45000|	301
+
+### @ManyToOne <a name="manytoone"></a> 
