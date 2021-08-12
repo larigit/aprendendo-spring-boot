@@ -669,3 +669,5 @@ recommended, this will also allow you to use a schema.sql script to build upon a
 it’s populated via data.sql.
 ````
 Link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.5-Release-Notes#hibernate-and-datasql
+
+Após inserir as informações em `data.sql` e rodar o programa, acessar `localhost:8080/h2-console`.
