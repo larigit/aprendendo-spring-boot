@@ -5,8 +5,20 @@
 # Table of contents
 1. [@Controller](#controller)
 2. [@RequestMapping](#requestmapping)
-    1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
+3. [@ResponseBody](#responsebody)
+4. [stream](#stream)
+5. [Method References](#methodreference)
+6. [Enum](#enum)
+7. [REST (Representational State Transfer)](#rest)
+	1. [Identificador de recursos (URI)](#uri)
+	2. [Manipulação de recursos (Verbos HTTP)](#verboshttp)
+	3. [Respostas](#respostas)
+8. [Spring Data JPA](#springdatajpa)
+9. [@Entity](#entity)
+10. [@GeneratedValue](#generatedvalue)
+11. [@Enumerated](#enumerated)
+	1. [Mapping Ordinal Value](#ordinal)
+	2. [Mapping String Value](#string)
 
 ---
 
@@ -61,7 +73,7 @@ Links para saber mais:
 - [Persistência em Java com API JPA](http://www.linhadecodigo.com.br/artigo/2525/persistencia-em-java-com-api-jpa.aspx)
 
 
-## @ResponseBody
+## @ResponseBody <a name="responsebody"></a>
 
 ![](responsebody.png) 
 
@@ -79,7 +91,7 @@ Links para saber mais:
 - [Design Patterns - DTO](https://javabahia.github.io/falando-sobre-dto/)
 
 
-## stream
+## stream <a name="stream"></a>
 
 A Streams API traz uma nova opção para a manipulação de coleções em Java seguindo os princípios da programação funcional. Combinada com as expressões lambda, ela proporciona uma forma diferente de lidar com conjuntos de elementos, oferecendo ao desenvolvedor uma maneira simples e concisa de escrever código que resulta em facilidade de manutenção e paralelização sem efeitos indesejados em tempo de execução.
 
@@ -128,7 +140,7 @@ Em suma, a Streams API trabalha convertendo uma fonte de dados em uma Stream. Em
 Links para saber mais: 
 - [Java 8: Iniciando o desenvolvimento com a Streams API](https://www.oracle.com/br/technical-resources/articles/java-stream-api.html)
 
-## Method References
+## Method References <a name="methodreference"></a>
 
 You use lambda expressions to create anonymous methods. Sometimes, however, a lambda expression does nothing but call an existing method. In those cases, it's often clearer to refer to the existing method by name. Method references enable you to do this; they are compact, easy-to-read lambda expressions for methods that already have a name.
 
@@ -173,7 +185,7 @@ HashSet::new
 Links para saber mais: 
 - [Method References](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)
 
-## ENUM
+## ENUM <a name="enum"></a>
 
 São tipos de campos que consistem em um conjunto fixo de constantes (static final), sendo como uma lista de valores pré-definidos. Na linguagem de programação Java, pode ser definido um tipo de enumeração usando a palavra chave enum.
 
@@ -198,7 +210,7 @@ return valor;
 Links para saber mais:
 - [Tipos Enum no Java](https://www.devmedia.com.br/tipos-enum-no-java/25729)
 
-## REST (Representational State Transfer)
+## REST (Representational State Transfer) <a name="rest"></a>
 
 Tem como objetivo primário a definição de características fundamentais para a construção de aplicações Web seguindo boas práticas.
 
