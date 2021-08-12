@@ -355,3 +355,7 @@ public class Produto {
 
 }
 ````
+
+Para saber mais:
+- [JPA: Como usar a anotação @GeneratedValue](https://www.devmedia.com.br/jpa-como-usar-a-anotacao-generatedvalue/38592)
+- [Entendendo a geração de chaves com JPA](https://www.alura.com.br/artigos/entendendo-a-geracao-de-chaves-com-jpa)
