@@ -24,6 +24,8 @@
 	2. [Mapping String Value](#string)
 14. [JPA - Relacionamentos de Entidade](#relacionamentosentidade)
 15. [Inserir Dados via data.sql H2](#sqlh2)
+16. [DAO e Repository](#daorepo)
+17. [Injeção de dependências com Spring](#di)
 ---
 
 ## @Controller <a name="controller"></a> 
@@ -687,3 +689,25 @@ Esta url deve ser a mesma que está no arquivo `application.properties`:
 
 Após modificar, clicar em `salvar` e em `conectar`.
 
+
+## DAO e Repository <a name="daorepo"></a> 
+#### [Voltar para o topo](#topo)
+
+O DAO e o Repository podem ser usados juntos, mas são padrões com funções diferentes.
+
+O DAO é considerado um padrão de integração e é usado como parte da infraestrutura da aplicação. Um DAO serve para você especificar qual o banco de dados vai ser usado, como ele será usado e todas as instruções que devem ser passadas a ele. Ou seja, o DAO conhece e sabe exatamente com qual infraestrutura (banco de dados, arquivos, memória, ...) ele está lidando.
+
+O Repository é considerado um padrão de domínio e faz parte das regras de negócios de uma aplicação. Esse padrão não tem conhecimento da infraestrutura, assim, ele não sabe que está lidando com um banco de dados. Sua real função é trabalhar como uma porta ou janela de acesso a outra camada, que poderia ser o DAO.
+E o que ele faz? Apenas retorna um objeto de domínio, como um objeto Pessoa ou uma lista de objetos do tipo Pessoa. Como ele retorna isso, bem, isso é um segredo para ele, já que ele não sabe o que está acontecendo do outro lado da janela.
+
+Antes do uso de frameworks ORM, como o Hibernate, o DAO era bastante usado em aplicações com acesso a banco de dados. Com a chegada dos frameworks ORM ele continuou sendo usado, mas na verdade os frameworks é que fazem o trabalho de DAO, porque são eles que conhecem e lidam com a infraestrutura.
+Só que se continuou usando o nome DAO para adicionar as classes que continham as instruções de CRUD. Algo como um extensão do que os frameworks ofereciam. Essa pratica gerou algumas controvérsias.
+
+Alguns assumem que sim, se pode chamar essas classes de DAO, porque se elas possuem os objetos de consulta a banco de dados e as instruções HQL, JPQL ou mesmo SQL, seria ainda infraestrutura. Porque são comandos específicos de banco de dados e banco de dados estão ligados a infraestrutura.
+
+Outros defendem que essas classes, com as consultas e demais operações, seriam um repositório. Já que quem lida com a infraestrutura é o framework.
+Mas, o repositório deveria ser apenas uma janela, não deveria saber que um HQL vai devolver um objeto Pessoa ou uma lista qualquer de pessoas. Por conta disso, não se chega realmente a uma conclusão.
+
+
+## Injeção de dependências com Spring <a name="di"></a> 
+#### [Voltar para o topo](#topo)
