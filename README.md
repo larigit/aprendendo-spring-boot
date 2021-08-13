@@ -877,3 +877,4 @@ Links para saber mais:
 - [Injeção de dependências com Spring](https://blog.algaworks.com/injecao-de-dependencias-com-spring/)
 - [Injeção de dependência e inversão de controle](https://www.youtube.com/watch?v=O07XFebgw-g&ab_channel=DevSuperior)
 - [Inversão de Controle x Injeção de Dependência](https://www.devmedia.com.br/inversao-de-controle-x-injecao-de-dependencia/18763)
+- [Entendendo Coesão e Acoplamento](https://www.devmedia.com.br/entendendo-coesao-e-acoplamento/18538)
