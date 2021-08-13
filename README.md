@@ -708,6 +708,11 @@ Alguns assumem que sim, se pode chamar essas classes de DAO, porque se elas poss
 Outros defendem que essas classes, com as consultas e demais operações, seriam um repositório. Já que quem lida com a infraestrutura é o framework.
 Mas, o repositório deveria ser apenas uma janela, não deveria saber que um HQL vai devolver um objeto Pessoa ou uma lista qualquer de pessoas. Por conta disso, não se chega realmente a uma conclusão.
 
+Links para saber mais:
+- https://www.devmedia.com.br/forum/dao-ou-repository-qual-usar/582418
 
 ## Injeção de dependências com Spring <a name="di"></a> 
 #### [Voltar para o topo](#topo)
+
+
+
