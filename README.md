@@ -26,6 +26,8 @@
 15. [Inserir Dados via data.sql H2](#sqlh2)
 16. [DAO e Repository](#daorepo)
 17. [Injeção de dependências com Spring](#di)
+	1. [@Autowired](#autowired)
+ 
 ---
 
 ## @Controller <a name="controller"></a> 
@@ -714,5 +716,164 @@ Links para saber mais:
 ## Injeção de dependências com Spring <a name="di"></a> 
 #### [Voltar para o topo](#topo)
 
+Injeção de dependências (ou Dependency Injection – DI) é um tipo de inversão de controle (ou Inversion of Control – IoC) que dá nome ao processo de prover instâncias de classes que um objeto precisa para funcionar.
 
+Vamos supor uma classe como abaixo:
+````
+public class ClienteServico {
+ 
+  private ClienteRepositorio repositorio;
+ 
+  public void salvar(Cliente cliente) {
+    this.repositorio.salvar(cliente);
+  }
+  ...
+}
+````
+Como a propriedade repositorio é uma dependência de ClienteServico, então, segundo o conceito de injeção de dependências, uma instância dessa propriedade deve ser provida.
 
+Para manter o conceito de injeção não podemos utilizar a palavra reservada new como abaixo:
+````
+public class ClienteServico {
+ 
+  private ClienteRepositorio repositorio = new ClienteRepositorioJPA();
+ 
+  public void salvar(Cliente cliente) {
+    this.repositorio.salvar(cliente);
+  }
+ 
+  ...
+}
+````
+Isso porque injeção é algo que espera-se que venha de fora para dentro.
+
+A pergunta agora é: Por onde essa instância vai vir?
+
+Isso vamos ver em um próximo tópico, sobre pontos de injeção.
+
+O importante agora é entender que dessa forma nós conseguimos programar voltados para interfaces e, com isso, manter o baixo acoplamento entre as classes de um mesmo projeto.
+
+Com certeza, essa característica é uma grande vantagem para a arquitetura do seu sistema. Sendo assim, esse é um conceito que merece a atenção da sua parte.
+
+Pontos de injeção
+Podemos considerar como pontos de injeção qualquer maneira que possibilite entregar a dependência para um objeto.
+
+Os dois mais comuns são pelo construtor:
+````
+public class ClienteServico {
+ 
+  private ClienteRepositorio repositorio;
+ 
+  public ClienteServico(ClienteRepositorio repositorio) {
+    this.repositorio = repositorio
+  }
+ 
+  ...
+}
+ 
+public class Main {
+ 
+  public static void main(String... args) {
+    ClienteRepositorio clienteRepositorio = new ClienteRepositorioJPA();
+ 
+    ClienteServico clienteServico = new ClienteServico(clienteRepositorio);
+    ...
+  }
+}
+````
+… e pelo método setter:
+````
+public class ClienteServico {
+ 
+  private ClienteRepositorio repositorio;
+ 
+  ...
+ 
+  public void setClienteRepositorio(ClienteRepositorio repositorio) {
+    this.repositorio = repositorio;
+  }
+}
+ 
+public class Main {
+ 
+  public static void main(String... args) {
+    ClienteRepositorio clienteRepositorio = new ClienteRepositorioJPA();
+ 
+    ClienteServico clienteServico = new ClienteServico();
+    clienteServico.setClienteRepositorio(clienteRepositorio);
+    ...
+  }
+}
+````
+### @Autowired <a name="autowired"></a> 
+
+No Spring, para marcar os pontos de injeção dentro da sua classe, você utiliza a anotação @Autowired.
+
+Você pode utilizar essa anotação em:
+
+- Propriedades;
+- Construtores; e
+- Métodos (mais comumente, os setters)
+
+Utilizando a anotação nas propriedades, seria:
+````
+public class ClienteServico {
+   
+  @Autowired
+  private ClienteRepositorio repositorio;
+   
+  ...
+}
+````
+No construtor:
+````
+public class ClienteServico {
+   
+  private ClienteRepositorio repositorio;
+   
+  @Autowired
+  public ClienteServico(ClienteRepositorio repositorio) {
+    this.repositorio = repositorio;
+  }
+ 
+  ...
+}
+````
+Por último, com métodos, seria assim:
+````
+public class ClienteServico {
+   
+  private ClienteRepositorio repositorio;
+   
+  ...
+ 
+  // Caso você preferisse, esse método poderia se 
+  // chamar também "configurarRepositorio", mas
+  // o mais comum é criar um método setter mesmo.
+  @Autowired
+  public void setRepositorio(ClienteRepositorio repositorio) {
+    this.repositorio = repositorio;
+  }
+}
+````
+É possível também misturar. Você pode, por exemplo, marcar uma propriedade e um construtor:
+````
+public class ClienteServico {
+ 
+  @Autowired
+  private Notificador notificador;
+   
+  private ClienteRepositorio repositorio;
+   
+  @Autowired
+  public ClienteServico(ClienteRepositorio repositorio) {
+    this.repositorio = repositorio;
+  }
+ 
+  ...
+}
+````
+Links para saber mais:
+- [Injeção de dependências com Spring](https://blog.algaworks.com/injecao-de-dependencias-com-spring/)
+- [Injeção de dependência e inversão de controle](https://www.youtube.com/watch?v=O07XFebgw-g&ab_channel=DevSuperior)
+- [Inversão de Controle x Injeção de Dependência](https://www.devmedia.com.br/inversao-de-controle-x-injecao-de-dependencia/18763)
