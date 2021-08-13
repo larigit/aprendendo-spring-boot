@@ -878,3 +878,7 @@ Links para saber mais:
 - [Injeção de dependência e inversão de controle](https://www.youtube.com/watch?v=O07XFebgw-g&ab_channel=DevSuperior)
 - [Inversão de Controle x Injeção de Dependência](https://www.devmedia.com.br/inversao-de-controle-x-injecao-de-dependencia/18763)
 - [Entendendo Coesão e Acoplamento](https://www.devmedia.com.br/entendendo-coesao-e-acoplamento/18538)
+- [Spring Boot: utilizar @Autowired é uma boa prática?](https://raphaelcarvalho.dev/2019/07/22/spring-boot-utilizar-autowired-e-uma-boa-pratica/)
+- [O que é @Autowired?](https://www.youtube.com/watch?v=1BZ61FDm1tw&ab_channel=AlgaWorks)
+
+
