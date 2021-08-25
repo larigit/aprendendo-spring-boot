@@ -27,6 +27,9 @@
 16. [DAO e Repository](#daorepo)
 17. [Injeção de dependências com Spring](#di)
 	1. [@Autowired](#autowired)
+18. [ResponseEntity](#responseentity)
+19. [@RequestBody](#resquestbody)
+20. [UriComponentsBuilder](#uribuilder)
  
 ---
 
@@ -880,5 +883,104 @@ Links para saber mais:
 - [Entendendo Coesão e Acoplamento](https://www.devmedia.com.br/entendendo-coesao-e-acoplamento/18538)
 - [Spring Boot: utilizar @Autowired é uma boa prática?](https://raphaelcarvalho.dev/2019/07/22/spring-boot-utilizar-autowired-e-uma-boa-pratica/)
 - [O que é @Autowired?](https://www.youtube.com/watch?v=1BZ61FDm1tw&ab_channel=AlgaWorks)
+
+
+
+## ResponseEntity <a name="responseentity"></a> 
+#### [Voltar para o topo](#topo)
+
+ResponseEntity representa toda a resposta HTTP: código de status, cabeçalhos e corpo. Como resultado, podemos usá-lo para configurar totalmente a resposta HTTP.
+Se quisermos usá-lo, temos que retorná-lo no endpoint; o Spring cuida do resto.
+
+ResponseEntity é um tipo genérico. Consequentemente, podemos usar qualquer tipo como corpo de resposta:
+````
+@GetMapping("/hello")
+ResponseEntity<String> hello() {
+    return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+}
+````
+Como especificamos o status da resposta programaticamente, podemos retornar com códigos de status diferentes para cenários diferentes:
+````
+@GetMapping("/age")
+ResponseEntity<String> age(
+  @RequestParam("yearOfBirth") int yearOfBirth) {
+ 
+    if (isInFuture(yearOfBirth)) {
+        return new ResponseEntity<>(
+          "Year of birth cannot be in the future", 
+          HttpStatus.BAD_REQUEST);
+    }
+
+    return new ResponseEntity<>(
+      "Your age is " + calculateAge(yearOfBirth), 
+      HttpStatus.OK);
+}
+````
+Além disso, podemos definir cabeçalhos HTTP:
+````
+@GetMapping("/customHeader")
+ResponseEntity<String> customHeader() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Custom-Header", "foo");
+        
+    return new ResponseEntity<>(
+      "Custom header set", headers, HttpStatus.OK);
+}
+````
+Além disso, ResponseEntity fornece duas interfaces de construtor aninhadas: HeadersBuilder e sua subinterface, BodyBuilder. Portanto, podemos acessar seus recursos por meio dos métodos estáticos de ResponseEntity.
+
+O caso mais simples é uma resposta com um corpo e código de resposta HTTP 200:
+````
+@GetMapping("/hello")
+ResponseEntity<String> hello() {
+    return ResponseEntity.ok("Hello World!");
+}
+````
+Para os códigos de status HTTP mais populares, obtemos métodos estáticos:
+````
+BodyBuilder accepted();
+BodyBuilder badRequest();
+BodyBuilder created(java.net.URI location);
+HeadersBuilder<?> noContent();
+HeadersBuilder<?> notFound();
+BodyBuilder ok();
+````
+
+Além disso, podemos usar os métodos BodyBuilder status(HttpStatus status) e BodyBuilder status(int status) para definir qualquer status HTTP.
+Finalmente, com ResponseEntity<T> BodyBuilder.body(T body), podemos definir o corpo da resposta HTTP:
+````
+@GetMapping("/age")
+ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
+    if (isInFuture(yearOfBirth)) {
+        return ResponseEntity.badRequest()
+            .body("Year of birth cannot be in the future");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK)
+        .body("Your age is " + calculateAge(yearOfBirth));
+}
+````
+Também podemos definir cabeçalhos personalizados:
+````
+@GetMapping("/customHeader")
+ResponseEntity<String> customHeader() {
+    return ResponseEntity.ok()
+        .header("Custom-Header", "foo")
+        .body("Custom header set");
+}
+````
+
+Para saber mais:
+- [Utilizando o ResponseEntity](https://medium.com/collabcode/boas-pr%C3%A1ticas-para-a-implementa%C3%A7%C3%A3o-de-apis-no-spring-boot-com-kotlin-6e77aac110da#:~:text=Utilizando%20o%20ResponseEntity)
+- [Using Spring ResponseEntity to Manipulate the HTTP Response](https://www.baeldung.com/spring-response-entity)
+
+
+## @RequestBody <a name="resquestbody"></a> 
+#### [Voltar para o topo](#topo)
+
+
+
+## UriComponentsBuilder <a name="uribuilder"></a> 
+#### [Voltar para o topo](#topo)
 
 
