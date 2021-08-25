@@ -33,7 +33,7 @@
 ## @Controller <a name="controller"></a> 
 #### [Voltar para o topo](#topo)
 
-![](controller.png) 
+![](assets/controller.png) 
 
 
 Sua função é ser uma camada intermediária entre a camada de apresentação (View) e a camada de negócios (Model).
@@ -49,7 +49,7 @@ Links para saber mais:
 ## @RequestMapping <a name="requestmapping"></a>
 #### [Voltar para o topo](#topo)
 
-![](requestmapping.png) 
+![](assets/requestmapping.png) 
 
 A classe Controller contém vários métodos manipuladores para manipular as diferentes solicitações HTTP, mas como o Spring mapeia uma solicitação específica para um método manipulador específico? Bem, isso é feito com a ajuda da annotation @RequestMapping. É uma annotation no nível do método que é colocada sobre um método.
 Define a url que quando for requisitada chamara o metodo.
@@ -70,7 +70,7 @@ Para tal são necessários metadados para essa persistência. Esses metadados po
 
 Com annotations, por exemplo, você poderá ter em sua classe indicadores de que aquela classe esta sofrendo persistência (Entity) ou de que seus métodos são colunas de uma determinada tabela , como observado abaixo, nesse exemplo:
 
-![](exemploannotations.gif) 
+![](assets/exemploannotations.gif) 
 
 Por default, o nome de uma tabela corresponde ao nome da classe, mas isto pode ser mudado com uso de @Table(name="MYNEWTABLE"). O mesmo acontece com as colunas, onde cada field sera mapeado com o nome de uma coluna. Tambem pode ser mudado utilizando-se @Column(name="mynewColumn”). O uso de @Id define que aquele  atributo está mapeado e corresponde à chave primária da tabela. Se usarmos juntamente a @GeneratedValue, teremos um valor gerado automaticamente.
 
@@ -87,7 +87,7 @@ Links para saber mais:
 ## @ResponseBody <a name="responsebody"></a>
 #### [Voltar para o topo](#topo)
 
-![](responsebody.png) 
+![](assets/responsebody.png) 
 
 Essa annotation é usada para transformar um objeto Java retornado do controller em uma representação de recurso solicitada por um cliente REST. Precisamos anotar cada método que gera resposta REST com a anotação @ResponseBody.
 
@@ -245,26 +245,26 @@ Exemplo:
 
 ### Manipulação de recursos (Verbos HTTP) <a name="verboshttp"></a>
 
-![](verboshttp.png) 
+![](assets/verboshttp.png) 
 
 Para interagirmos com os recursos, o HTTP nos fornece uma interface de operações padronizadas, permitindo que possamos criar, atualizar, pesquisar, remover e executar operações sob um determinado recurso.
 
 - GET: (/alunos) O método GET é utilizado quando existe a necessidade de se obter um recurso. Em caso de sucesso, retorna uma representação em JSON e um código de resposta HTTP de 200 (OK). Em caso de erro, ele geralmente retorna um 404 (NOT FOUND) ou 400 (BAD REQUEST). 
 
 De acordo com o design da especificação HTTP, requisições GET (juntamente com HEAD) são usadas apenas para ler dados e jamais alterá-los. Portanto, quando usados dessa forma, são considerados seguros.
-![](get.png) 
+![](assets/get.png) 
 Get com parametro:
-![](getcomparam1.png)
+![](assets/getcomparam1.png)
 
-![](getcomparam2.png) 
+![](assets/getcomparam2.png) 
 
 - POST: (/alunos) Utilizamos o método POST quando desejamos criar algum recurso no servidor a partir de uma determinada representação. Na criação bem-sucedida, retornar o status HTTP 201. 
 
 Ele não é um método seguro, pois altera o estado do recurso no servidor. Ele também não é idempotente, o que quer dizer que se ele for executado duas vezes de forma idêntica serão criados dois itens diferentes com o mesmo conjunto de dados.
 
-![](post1.png) 
+![](assets/post1.png) 
 
-![](post2.png) 
+![](assets/post2.png) 
 
 - PUT: (/alunos/{id}) PUT é mais utilizado para substituir (ou atualizar) recursos, executando a requisição para uma URI de recurso conhecido, com o corpo da requisição contendo a representação recém-atualizada do recurso original.
 
@@ -272,13 +272,13 @@ Na atualização bem-sucedida, retorna 200 (ou 204 se não retornar qualquer con
 
 PUT não é uma operação segura, pois modifica estado no servidor, mas é idempotente. Em outras palavras, se você atualizar um recurso usando PUT e, em seguida, fazer essa mesma chamada novamente, o recurso ainda está lá e ainda tem o mesmo estado.
 
-![](put.png) 
+![](assets/put.png) 
 
 - DELETE: (/alunos/{id}) Como você já deve estar imaginando, o método DELETE é utilizado com o intuito de remover um recurso em um determinado servidor. Na exclusão bem-sucedida, devolve o status HTTP 200 (OK) ou o status HTTP 204 (NO CONTENT) sem corpo de resposta.
 
 Operações DELETE são idempotentes.
 
-![](delete.png) 
+![](assets/delete.png) 
 
 ### Respostas <a name="respostas"></a> 
 
@@ -679,15 +679,15 @@ Link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.5-Releas
 
 Após inserir as informações em `data.sql` para popular o banco de dados e rodar o programa, acessar `localhost:8080/h2-console`. A seguinte tela irá aparecer no navegador:
 
-![](h2-console.png)
+![](assets/h2-console.png)
 
 Deve ser feita a modificação na url:
 
-![](h2atualizaurl.png)
+![](assets/h2atualizaurl.png)
 
 Esta url deve ser a mesma que está no arquivo `application.properties`:
 
-![](urlemappproperties.png)
+![](assets/urlemappproperties.png)
 
 Após modificar, clicar em `salvar` e em `conectar`.
 
