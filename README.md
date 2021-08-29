@@ -977,10 +977,38 @@ Para saber mais:
 
 ## @RequestBody <a name="resquestbody"></a> 
 #### [Voltar para o topo](#topo)
+	
+A anotação @RequestBody mapeia o corpo HttpRequest para uma transferência ou objeto de domínio, permitindo a desserialização automática do corpo HttpRequest de entrada em um objeto Java.
 
+Primeiro, vamos dar uma olhada em um método de controlador Spring:
+````
+@PostMapping("/request")
+public ResponseEntity postController(
+  @RequestBody LoginForm loginForm) {
+ 
+    exampleService.fakeAuthenticate(loginForm);
+    return ResponseEntity.ok(HttpStatus.OK);
+}
+````
+O Spring desserializa automaticamente o JSON em um tipo Java, assumindo que um apropriado tipo seja especificado.
 
+Por padrão, o tipo que anotamos com a anotação @RequestBody deve corresponder ao JSON enviado de nosso controlador do lado do cliente:
+````
+public class LoginForm {
+    private String username;
+    private String password;
+    // ...
+}
+````
 
+Links para saber mais:
+-[Spring’s RequestBody and ResponseBody Annotations](https://www.baeldung.com/spring-request-response-body)
+	
 ## UriComponentsBuilder <a name="uribuilder"></a> 
 #### [Voltar para o topo](#topo)
 
-
+É usado para construir URI. Particularmente útil quando você deseja invocar serviços da web em sua classe.
+	
+Links para saber mais:
+-[Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
+-[What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
