@@ -1003,7 +1003,7 @@ public class LoginForm {
 
 Links para saber mais:
 	
--[Spring’s RequestBody and ResponseBody Annotations](https://www.baeldung.com/spring-request-response-body)
+- [Spring’s RequestBody and ResponseBody Annotations](https://www.baeldung.com/spring-request-response-body)
 	
 ## UriComponentsBuilder <a name="uribuilder"></a> 
 #### [Voltar para o topo](#topo)
@@ -1012,6 +1012,6 @@ Links para saber mais:
 	
 Links para saber mais:
 	
--[Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
--[What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
--[Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
+- [Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
+- [What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
+- [Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
