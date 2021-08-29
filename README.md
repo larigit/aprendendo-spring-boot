@@ -1002,6 +1002,7 @@ public class LoginForm {
 ````
 
 Links para saber mais:
+	
 -[Spring’s RequestBody and ResponseBody Annotations](https://www.baeldung.com/spring-request-response-body)
 	
 ## UriComponentsBuilder <a name="uribuilder"></a> 
@@ -1010,5 +1011,7 @@ Links para saber mais:
 É usado para construir URI. Particularmente útil quando você deseja invocar serviços da web em sua classe.
 	
 Links para saber mais:
+	
 -[Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
 -[What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
+-[Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
