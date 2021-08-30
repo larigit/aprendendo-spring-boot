@@ -27,13 +27,16 @@
 16. [DAO e Repository](#daorepo)
 17. [Injeção de dependências com Spring](#di)
 	1. [@Autowired](#autowired)
+18. [ResponseEntity](#responseentity)
+19. [@RequestBody](#resquestbody)
+20. [UriComponentsBuilder](#uribuilder)
  
 ---
 
 ## @Controller <a name="controller"></a> 
 #### [Voltar para o topo](#topo)
 
-![](controller.png) 
+![](assets/controller.png) 
 
 
 Sua função é ser uma camada intermediária entre a camada de apresentação (View) e a camada de negócios (Model).
@@ -49,7 +52,7 @@ Links para saber mais:
 ## @RequestMapping <a name="requestmapping"></a>
 #### [Voltar para o topo](#topo)
 
-![](requestmapping.png) 
+![](assets/requestmapping.png) 
 
 A classe Controller contém vários métodos manipuladores para manipular as diferentes solicitações HTTP, mas como o Spring mapeia uma solicitação específica para um método manipulador específico? Bem, isso é feito com a ajuda da annotation @RequestMapping. É uma annotation no nível do método que é colocada sobre um método.
 Define a url que quando for requisitada chamara o metodo.
@@ -70,7 +73,7 @@ Para tal são necessários metadados para essa persistência. Esses metadados po
 
 Com annotations, por exemplo, você poderá ter em sua classe indicadores de que aquela classe esta sofrendo persistência (Entity) ou de que seus métodos são colunas de uma determinada tabela , como observado abaixo, nesse exemplo:
 
-![](exemploannotations.gif) 
+![](assets/exemploannotations.gif) 
 
 Por default, o nome de uma tabela corresponde ao nome da classe, mas isto pode ser mudado com uso de @Table(name="MYNEWTABLE"). O mesmo acontece com as colunas, onde cada field sera mapeado com o nome de uma coluna. Tambem pode ser mudado utilizando-se @Column(name="mynewColumn”). O uso de @Id define que aquele  atributo está mapeado e corresponde à chave primária da tabela. Se usarmos juntamente a @GeneratedValue, teremos um valor gerado automaticamente.
 
@@ -87,7 +90,7 @@ Links para saber mais:
 ## @ResponseBody <a name="responsebody"></a>
 #### [Voltar para o topo](#topo)
 
-![](responsebody.png) 
+![](assets/responsebody.png) 
 
 Essa annotation é usada para transformar um objeto Java retornado do controller em uma representação de recurso solicitada por um cliente REST. Precisamos anotar cada método que gera resposta REST com a anotação @ResponseBody.
 
@@ -245,26 +248,26 @@ Exemplo:
 
 ### Manipulação de recursos (Verbos HTTP) <a name="verboshttp"></a>
 
-![](verboshttp.png) 
+![](assets/verboshttp.png) 
 
 Para interagirmos com os recursos, o HTTP nos fornece uma interface de operações padronizadas, permitindo que possamos criar, atualizar, pesquisar, remover e executar operações sob um determinado recurso.
 
 - GET: (/alunos) O método GET é utilizado quando existe a necessidade de se obter um recurso. Em caso de sucesso, retorna uma representação em JSON e um código de resposta HTTP de 200 (OK). Em caso de erro, ele geralmente retorna um 404 (NOT FOUND) ou 400 (BAD REQUEST). 
 
 De acordo com o design da especificação HTTP, requisições GET (juntamente com HEAD) são usadas apenas para ler dados e jamais alterá-los. Portanto, quando usados dessa forma, são considerados seguros.
-![](get.png) 
+![](assets/get.png) 
 Get com parametro:
-![](getcomparam1.png)
+![](assets/getcomparam1.png)
 
-![](getcomparam2.png) 
+![](assets/getcomparam2.png) 
 
 - POST: (/alunos) Utilizamos o método POST quando desejamos criar algum recurso no servidor a partir de uma determinada representação. Na criação bem-sucedida, retornar o status HTTP 201. 
 
 Ele não é um método seguro, pois altera o estado do recurso no servidor. Ele também não é idempotente, o que quer dizer que se ele for executado duas vezes de forma idêntica serão criados dois itens diferentes com o mesmo conjunto de dados.
 
-![](post1.png) 
+![](assets/post1.png) 
 
-![](post2.png) 
+![](assets/post2.png) 
 
 - PUT: (/alunos/{id}) PUT é mais utilizado para substituir (ou atualizar) recursos, executando a requisição para uma URI de recurso conhecido, com o corpo da requisição contendo a representação recém-atualizada do recurso original.
 
@@ -272,13 +275,13 @@ Na atualização bem-sucedida, retorna 200 (ou 204 se não retornar qualquer con
 
 PUT não é uma operação segura, pois modifica estado no servidor, mas é idempotente. Em outras palavras, se você atualizar um recurso usando PUT e, em seguida, fazer essa mesma chamada novamente, o recurso ainda está lá e ainda tem o mesmo estado.
 
-![](put.png) 
+![](assets/put.png) 
 
 - DELETE: (/alunos/{id}) Como você já deve estar imaginando, o método DELETE é utilizado com o intuito de remover um recurso em um determinado servidor. Na exclusão bem-sucedida, devolve o status HTTP 200 (OK) ou o status HTTP 204 (NO CONTENT) sem corpo de resposta.
 
 Operações DELETE são idempotentes.
 
-![](delete.png) 
+![](assets/delete.png) 
 
 ### Respostas <a name="respostas"></a> 
 
@@ -679,15 +682,15 @@ Link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.5-Releas
 
 Após inserir as informações em `data.sql` para popular o banco de dados e rodar o programa, acessar `localhost:8080/h2-console`. A seguinte tela irá aparecer no navegador:
 
-![](h2-console.png)
+![](assets/h2-console.png)
 
 Deve ser feita a modificação na url:
 
-![](h2atualizaurl.png)
+![](assets/h2atualizaurl.png)
 
 Esta url deve ser a mesma que está no arquivo `application.properties`:
 
-![](urlemappproperties.png)
+![](assets/urlemappproperties.png)
 
 Após modificar, clicar em `salvar` e em `conectar`.
 
@@ -882,3 +885,133 @@ Links para saber mais:
 - [O que é @Autowired?](https://www.youtube.com/watch?v=1BZ61FDm1tw&ab_channel=AlgaWorks)
 
 
+
+## ResponseEntity <a name="responseentity"></a> 
+#### [Voltar para o topo](#topo)
+
+ResponseEntity representa toda a resposta HTTP: código de status, cabeçalhos e corpo. Como resultado, podemos usá-lo para configurar totalmente a resposta HTTP.
+Se quisermos usá-lo, temos que retorná-lo no endpoint; o Spring cuida do resto.
+
+ResponseEntity é um tipo genérico. Consequentemente, podemos usar qualquer tipo como corpo de resposta:
+````
+@GetMapping("/hello")
+ResponseEntity<String> hello() {
+    return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+}
+````
+Como especificamos o status da resposta programaticamente, podemos retornar com códigos de status diferentes para cenários diferentes:
+````
+@GetMapping("/age")
+ResponseEntity<String> age(
+  @RequestParam("yearOfBirth") int yearOfBirth) {
+ 
+    if (isInFuture(yearOfBirth)) {
+        return new ResponseEntity<>(
+          "Year of birth cannot be in the future", 
+          HttpStatus.BAD_REQUEST);
+    }
+
+    return new ResponseEntity<>(
+      "Your age is " + calculateAge(yearOfBirth), 
+      HttpStatus.OK);
+}
+````
+Além disso, podemos definir cabeçalhos HTTP:
+````
+@GetMapping("/customHeader")
+ResponseEntity<String> customHeader() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Custom-Header", "foo");
+        
+    return new ResponseEntity<>(
+      "Custom header set", headers, HttpStatus.OK);
+}
+````
+Além disso, ResponseEntity fornece duas interfaces de construtor aninhadas: HeadersBuilder e sua subinterface, BodyBuilder. Portanto, podemos acessar seus recursos por meio dos métodos estáticos de ResponseEntity.
+
+O caso mais simples é uma resposta com um corpo e código de resposta HTTP 200:
+````
+@GetMapping("/hello")
+ResponseEntity<String> hello() {
+    return ResponseEntity.ok("Hello World!");
+}
+````
+Para os códigos de status HTTP mais populares, obtemos métodos estáticos:
+````
+BodyBuilder accepted();
+BodyBuilder badRequest();
+BodyBuilder created(java.net.URI location);
+HeadersBuilder<?> noContent();
+HeadersBuilder<?> notFound();
+BodyBuilder ok();
+````
+
+Além disso, podemos usar os métodos BodyBuilder status(HttpStatus status) e BodyBuilder status(int status) para definir qualquer status HTTP.
+Finalmente, com ResponseEntity<T> BodyBuilder.body(T body), podemos definir o corpo da resposta HTTP:
+````
+@GetMapping("/age")
+ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
+    if (isInFuture(yearOfBirth)) {
+        return ResponseEntity.badRequest()
+            .body("Year of birth cannot be in the future");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK)
+        .body("Your age is " + calculateAge(yearOfBirth));
+}
+````
+Também podemos definir cabeçalhos personalizados:
+````
+@GetMapping("/customHeader")
+ResponseEntity<String> customHeader() {
+    return ResponseEntity.ok()
+        .header("Custom-Header", "foo")
+        .body("Custom header set");
+}
+````
+
+Para saber mais:
+- [Utilizando o ResponseEntity](https://medium.com/collabcode/boas-pr%C3%A1ticas-para-a-implementa%C3%A7%C3%A3o-de-apis-no-spring-boot-com-kotlin-6e77aac110da#:~:text=Utilizando%20o%20ResponseEntity)
+- [Using Spring ResponseEntity to Manipulate the HTTP Response](https://www.baeldung.com/spring-response-entity)
+
+
+## @RequestBody <a name="resquestbody"></a> 
+#### [Voltar para o topo](#topo)
+	
+A anotação @RequestBody mapeia o corpo HttpRequest para uma transferência ou objeto de domínio, permitindo a desserialização automática do corpo HttpRequest de entrada em um objeto Java.
+
+Primeiro, vamos dar uma olhada em um método de controlador Spring:
+````
+@PostMapping("/request")
+public ResponseEntity postController(
+  @RequestBody LoginForm loginForm) {
+ 
+    exampleService.fakeAuthenticate(loginForm);
+    return ResponseEntity.ok(HttpStatus.OK);
+}
+````
+O Spring desserializa automaticamente o JSON em um tipo Java, assumindo que um apropriado tipo seja especificado.
+
+Por padrão, o tipo que anotamos com a anotação @RequestBody deve corresponder ao JSON enviado de nosso controlador do lado do cliente:
+````
+public class LoginForm {
+    private String username;
+    private String password;
+    // ...
+}
+````
+
+Links para saber mais:
+	
+- [Spring’s RequestBody and ResponseBody Annotations](https://www.baeldung.com/spring-request-response-body)
+	
+## UriComponentsBuilder <a name="uribuilder"></a> 
+#### [Voltar para o topo](#topo)
+
+É usado para construir URI. Particularmente útil quando você deseja invocar serviços da web em sua classe.
+	
+Links para saber mais:
+	
+- [Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
+- [What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
+- [Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
