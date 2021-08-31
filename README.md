@@ -30,6 +30,7 @@
 18. [ResponseEntity](#responseentity)
 19. [@RequestBody](#resquestbody)
 20. [UriComponentsBuilder](#uribuilder)
+21. [@Transactional](#transactional)
  
 ---
 
@@ -1015,3 +1016,58 @@ Links para saber mais:
 - [Guide to UriComponentsBuilder in Spring](https://www.baeldung.com/spring-uricomponentsbuilder)
 - [What is the meaning of UriComponentsBuilder?](https://stackoverflow.com/questions/47345361/what-is-the-meaning-of-uricomponentsbuilder)
 - [Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
+	
+	
+## @Transactional] <a name="transactional"></a> 
+#### [Voltar para o topo](#topo)
+---
+
+Uma transação garante que todo processo deva ser executado com êxito, é “tudo ou nada” (princípio da atomicidade). Quando você realiza algum procedimento bancário transações estão intimamente ligadas a todos os seus passos, garantindo que nenhuma informação seja persistida se todo o processo não tiver 100% de êxito.
+	
+	
+Transação com JPA:
+````
+UserTransaction utx = entityManager.getTransaction();
+
+try {
+    utx.begin();
+
+    businessLogic();
+
+    utx.commit();
+} catch(Exception ex) {
+    utx.rollback();
+    throw ex;
+}	
+````
+	
+- begin(): Inicia uma transação;
+- commit(): Finaliza uma transação;
+- rollback(): Cancela uma transação.
+	
+Transação com @Transactional:
+````
+@Transactional
+public void businessLogic() {
+	//lógica necessária aqui
+}
+````
+	
+Na Listagem 1 precisamos capturar o entityManager, iniciar uma transação, finalizar a transação, tratar os erros dentro do bloco try-catch e chamar o rollback() caso necessário. Na Listagem 2 só anotamos o método com a anotação @Transactional e pronto, tudo que fizemos na Listagem 1 já está pronto na Listagem 2.
+
+A anotação @Transactional trabalha dentro do escopo de uma transação no banco de dados, a transação do banco de dados ocorre dentro do PersistenceContext, que por sua vez, está dentro do EntityManager que é implementado usando Hibernate Session (quando você está usando o Hibernate como container).
+
+O PersistenceContext funciona como um container que armazena os objetos em memória até que eles sejam sincronizados com o banco de dados.
+	
+Persistir e excluir objetos requer uma transação no JPA. Portanto, precisamos garantir que uma transação esteja em execução, o que fazemos com o método anotado com @Transactional. Métodos de leitura como findAll() e findOne(…) estão usando @Transactional(readOnly = true).
+	
+A anotação @Transactional demarca transações (você pode iniciar transações aninhadas, propagar transações para outras camadas, etc). A transação é uma unidade de trabalho isolada que leva o banco de dados de um estado consistente a outro estado consistente.
+	
+É boa prática sempre colocar o @Transactional nos métodos que precisam de transação, por exemplo: salvar, alterar, excluir, etc., pois assim você garante que eles vão ser executados dentro um contexto transacional e o rollback será feito caso ocorra algum erro. O método save do repository tem sua transação gerenciada pelo Spring.
+	
+Links para saber mais:
+- [Conheça o Spring Transactional Annotations](https://www.devmedia.com.br/conheca-o-spring-transactional-annotations/32472)
+- [Como usar o @Transactional com Spring Data?](https://www.ti-enxame.com/pt/java/como-usar-o-transactional-com-spring-data/1067142661/)
+- [Uso do @Transactional](https://cursos.alura.com.br/forum/topico-uso-do-transactional-107959)
+- [Funcionamento do @Transactional do Spring Framework](https://pt.stackoverflow.com/questions/26503/funcionamento-do-transactional-do-spring-framework)
+- [Transactions with Spring and JPA](https://www.baeldung.com/transaction-configuration-with-jpa-and-spring)
