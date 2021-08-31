@@ -947,8 +947,9 @@ HeadersBuilder<?> notFound();
 BodyBuilder ok();
 ````
 
-Além disso, podemos usar os métodos BodyBuilder status(HttpStatus status) e BodyBuilder status(int status) para definir qualquer status HTTP.
-Finalmente, com ResponseEntity<T> BodyBuilder.body(T body), podemos definir o corpo da resposta HTTP:
+Além disso, podemos usar os métodos BodyBuilder status (HttpStatus status) e BodyBuilder status (int status) para definir qualquer status HTTP.
+Finalmente, com `ResponseEntity<T> BodyBuilder.body(T body)`, podemos definir o corpo da resposta HTTP:
+
 ````
 @GetMapping("/age")
 ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
@@ -962,6 +963,7 @@ ResponseEntity<String> age(@RequestParam("yearOfBirth") int yearOfBirth) {
 }
 ````
 Também podemos definir cabeçalhos personalizados:
+
 ````
 @GetMapping("/customHeader")
 ResponseEntity<String> customHeader() {
@@ -971,9 +973,11 @@ ResponseEntity<String> customHeader() {
 }
 ````
 
+
 Para saber mais:
 - [Utilizando o ResponseEntity](https://medium.com/collabcode/boas-pr%C3%A1ticas-para-a-implementa%C3%A7%C3%A3o-de-apis-no-spring-boot-com-kotlin-6e77aac110da#:~:text=Utilizando%20o%20ResponseEntity)
 - [Using Spring ResponseEntity to Manipulate the HTTP Response](https://www.baeldung.com/spring-response-entity)
+
 
 
 ## @RequestBody <a name="resquestbody"></a> 
@@ -1020,7 +1024,7 @@ Links para saber mais:
 	
 ## @Transactional] <a name="transactional"></a> 
 #### [Voltar para o topo](#topo)
----
+
 
 Uma transação garante que todo processo deva ser executado com êxito, é “tudo ou nada” (princípio da atomicidade). Quando você realiza algum procedimento bancário transações estão intimamente ligadas a todos os seus passos, garantindo que nenhuma informação seja persistida se todo o processo não tiver 100% de êxito.
 	
