@@ -1022,7 +1022,7 @@ Links para saber mais:
 - [Class UriComponentsBuilder](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/UriComponentsBuilder.html#buildAndExpand-java.lang.Object...-)
 	
 	
-## @Transactional] <a name="transactional"></a> 
+## @Transactional <a name="transactional"></a> 
 #### [Voltar para o topo](#topo)
 
 
