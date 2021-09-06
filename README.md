@@ -31,6 +31,8 @@
 19. [@RequestBody](#resquestbody)
 20. [UriComponentsBuilder](#uribuilder)
 21. [@Transactional](#transactional)
+22. [Validação](#validacao)
+23. [findById()](#findbyid)
  
 ---
 
@@ -1075,3 +1077,115 @@ Links para saber mais:
 - [Uso do @Transactional](https://cursos.alura.com.br/forum/topico-uso-do-transactional-107959)
 - [Funcionamento do @Transactional do Spring Framework](https://pt.stackoverflow.com/questions/26503/funcionamento-do-transactional-do-spring-framework)
 - [Transactions with Spring and JPA](https://www.baeldung.com/transaction-configuration-with-jpa-and-spring)
+
+
+## Validação <a name="validacao"></a> 
+#### [Voltar para o topo](#topo)
+
+Quando se trata de validar a entrada do usuário, Spring Boot fornece forte suporte para esta tarefa comum.
+Embora Spring Boot ofereça suporte à integração contínua com validadores personalizados, o padrão de fato para realizar a validação é o Hibernate Validator, a implementação de referência da estrutura de validação do Bean.
+Vamos olhar a classe UsuarioDTO para ver o que precisamos validar:
+````
+public class UsuarioDTO {
+
+    private String nome;
+    private String email;
+    private String senha;
+
+    public Usuario transformaParaObjeto(){
+        return new Usuario(nome, email, senha);
+    }
+}
+````
+
+Temos nome, email e senha. Para que esses atributos sejam válidos eles não podem ser nulos, não podem estar em branco, ou seja, não podem ser Strings vazias, não podem ser compostos apenas por espaços em brancos e, no caso do campo email, precisa obrigatoriamente ter um ‘@’.
+
+Olhe como essa validação é simples de se fazer:
+````
+public class UsuarioDTO {
+
+    @NotBlank
+    private String nome;
+    @NotBlank
+    @Email
+    private String email;
+    @NotBlank
+    private String senha;
+
+    public Usuario transformaParaObjeto(){
+        return new Usuario(nome, email, senha);
+    }
+}
+````
+As anotações, também chamadas de constraints, colocadas atuam sobre o atributo anotado. Detalhando cada anotação, temos:
+@NotBlank: Verifica se o campo não está nulo ou vazio. Vale uma ressalva que antes de verificar se o campo está vazio um trim() é aplicado sobre o campo, logo Strings como " " não são permitidos.
+@Email: Verifica se o campo possui as características de um endereço de e-mail.
+Para finalizar, temos que adicionar a anotação @Valid no parâmetro do nosso controller. Essa anotação serve para indicar que o objeto será validado tendo como base as anotações de validação que atribuímos aos campos.
+
+Ficamos com o método do controller da seguinte maneira:
+````
+@PostMapping
+    public ResponseEntity<UsuarioRespostaDTO> salvar(@RequestBody @Valid UsuarioDTO dto) {
+        Usuario usuario = usuarioService.salvar(dto.transformaParaObjeto());
+        return new ResponseEntity<>(UsuarioRespostaDTO.transformaEmDTO(usuario), HttpStatus.CREATED);
+    }
+````
+Para atingir nosso objetivo precisamos capturar a exceção lançada pela falha na validação. Conseguindo fazer isso, podemos tratar essa exceção e enviar os erros de forma mais suave e concisa.
+Para conseguir fazer essa captura primeiro vamos criar uma classe que será responsável por capturar e tratar esses erros:
+````
+@RestControllerAdvice
+public class RestExceptionHandler {
+}
+````
+Com a anotação @RestControllerAdvice estamos tornando nossa classe visível para o Spring. Estamos dizendo que ela é um componente especializado em tratar exceções e que o retorno dos métodos da mesma devem ser inserido no corpo da resposta HTTP e convertidos para JSON (como não especificamos nenhum tipo de conversão, o Spring, através do Jackson, usará a padrão, no caso, JSON).
+Nesse caso, a exceção que queremos tratar é a MethodArgumentNotValidException que é a exceção lançada quando alguma validação de um argumento anotado com @Valid falha.
+A captura dessa exceção só é possível graças a anotação @ExceptionHandler. Essa anotação prove ao método a capacidade de tratar uma exceção quando ela for lançada. Para isso precisamos passar a classe da exceção como parâmetro da anotação e passar um objeto do tipo da exceção como parâmetro do método.
+
+Links para saber mais:
+- [Validando requisições e tratando exceções no Spring Boot](https://marioalvial.medium.com/validando-requisi%C3%A7%C3%B5es-e-tratando-exce%C3%A7%C3%B5es-no-spring-boot-1750ddb1e1cc)
+- [Validation in Spring Boot](https://www.baeldung.com/spring-boot-bean-validation)
+
+
+## findById() <a name="findbyid"></a> 
+#### [Voltar para o topo](#topo)
+
+findById() foi colocado no lugar de findOne() no CrudRepository interface.
+````
+Optional<T> findById(ID id); 
+````
+Um container object que pode ou não conter um valor não nulo. Se um valor estiver presente, isPresent () retornará true e get () retornará o valor.
+
+Métodos adicionais que dependem da presença ou ausência de um valor contido são fornecidos, como orElse () (retorna um valor padrão se o valor não estiver presente) e ifPresent () (executa um bloco de código se o valor estiver presente).
+
+Alguns exemplos:
+1- Suponha que, se a entidade for encontrada, você deseja obtê-la, caso contrário, deseja obter um valor padrão.
+````
+Foo foo = repository.findById(id)
+                    .orElse(new Foo());
+````
+ou obtenha um valor padrão nulo se fizer sentido (mesmo comportamento de antes da alteração da API):
+````
+Foo foo = repository.findById(id)
+                    .orElse(null);
+````
+
+2- Suponha que, se a entidade for encontrada, você deseja retorná-la, caso contrário, deseja lançar uma exceção.
+````
+return repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(id));
+````
+ 
+ 3- Suponha que você deseja aplicar um processamento diferente de acordo com se a entidade é encontrada ou não (sem necessariamente lançar uma exceção).
+ ````
+ Optional<Foo> fooOptional = fooRepository.findById(id);
+if (fooOptional.isPresent()) {
+    Foo foo = fooOptional.get();
+    // processing with foo ...
+} else {
+    // alternative processing....
+}
+ ````
+ 
+ Links para saber mais:
+ - [Spring Data JPA findOne() change to Optional how to use this?](https://stackoverflow.com/questions/49316751/spring-data-jpa-findone-change-to-optional-how-to-use-this)
+ - [Class Optional<T>](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
