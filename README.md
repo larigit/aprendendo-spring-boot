@@ -1,4 +1,4 @@
-# Aprendendo Spring Boot
+# Aprendendo Spring Boot - Construindo uma API
 #### Aqui vou estar documentando conceitos novos que estou aprendendo com o curso de Spring Boot da Alura.
 
 ---
